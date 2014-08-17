@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimpleToddlerPlayer</string>
+
+    <string name="player_unknown_movie">Nieznany film</string>
+</resources>
