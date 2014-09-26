@@ -25,8 +25,6 @@ import com.armatys.std.R;
 public class SelectActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = SelectActivity.class.getName();
 
-    private ListView listView;
-
     private CursorAdapter adapter;
 
     static final String[] PROJECTION = new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE};
@@ -37,9 +35,6 @@ public class SelectActivity extends ListActivity implements LoaderManager.Loader
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String[] fromColumns = {MediaStore.Video.Media.TITLE};
-        int[] toViews = {android.R.id.text1};
-
         adapter = new SelectCursorAdapter(this, null, 0);
         setListAdapter(adapter);
 
@@ -47,7 +42,7 @@ public class SelectActivity extends ListActivity implements LoaderManager.Loader
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, PROJECTION, SELECTION, null, null);
+        return new CursorLoader(this, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, PROJECTION, SELECTION, null, MediaStore.Video.Media.TITLE);
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
