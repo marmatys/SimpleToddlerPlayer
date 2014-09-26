@@ -12,7 +12,7 @@ public enum Intents {
     /**
      * Indicates that movie should be shown.
      *
-     * Requires IntentExtraKeys#MOVIE_PATH
+     * Requires {@link IntentExtraKeys#MOVIE_PATH}
      */
     SHOW_MOVIE;
 
@@ -50,7 +50,7 @@ public enum Intents {
 	private Intents(String action, int flags) {
 		this.action = action != null ? action : Intents.class.getPackage().getName() + '.' + name();
 		this.flags = flags;
-		Log.d(TAG, String.format("Created intent action %s", action));
+		Log.d(TAG, String.format("Created intent action %s", this.action));
 	}
 
 	public boolean equals(Intent intent) {

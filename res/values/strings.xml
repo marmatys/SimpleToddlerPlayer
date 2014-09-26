@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SimpleToddlerPlayer</string>
+    <string name="app_name">Simple Toddler Player</string>
 
     <string name="player_unknown_movie">Unknown movie</string>
+    <string name="player_back_pressed">To exit app please tap four corners in any order during 5 seconds</string>
 </resources>

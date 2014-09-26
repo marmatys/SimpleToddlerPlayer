@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SimpleToddlerPlayer</string>
+    <string name="app_name">Simple Toddler Player</string>
 
     <string name="player_unknown_movie">Nieznany film</string>
+    <string name="player_back_pressed">Aby wyjść naciśniej cztery rogi w ciągu 5 sekund</string>
 </resources>
