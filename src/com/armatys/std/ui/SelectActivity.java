@@ -1,6 +1,6 @@
 package com.armatys.std.ui;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -14,15 +14,12 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.armatys.std.IntentExtraKeys;
 import com.armatys.std.Intents;
 import com.armatys.std.R;
 
-public class SelectActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class SelectActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = SelectActivity.class.getName();
 
     private CursorAdapter adapter;
@@ -34,9 +31,23 @@ public class SelectActivity extends ListActivity implements LoaderManager.Loader
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.select_activity);
+        GridView gridView = (GridView) findViewById(R.id.grid);
 
         adapter = new SelectCursorAdapter(this, null, 0);
-        setListAdapter(adapter);
+        gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CursorWrapper item = (CursorWrapper) adapter.getItem(position);
+                int dataIndex = item.getColumnIndex(MediaStore.Video.Media.DATA);
+                String path = item.getString(dataIndex);
+                Intent intent = Intents.SHOW_MOVIE.getIntent();
+                intent.putExtra(IntentExtraKeys.MOVIE_PATH.getKey(), path);
+                startActivity(intent);
+            }
+        });
 
         getLoaderManager().initLoader(0, null, this);
     }
@@ -51,16 +62,6 @@ public class SelectActivity extends ListActivity implements LoaderManager.Loader
 
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        CursorWrapper item = (CursorWrapper) adapter.getItem(position);
-        int dataIndex = item.getColumnIndex(MediaStore.Video.Media.DATA);
-        String path = item.getString(dataIndex);
-        Intent intent = Intents.SHOW_MOVIE.getIntent();
-        intent.putExtra(IntentExtraKeys.MOVIE_PATH.getKey(), path);
-        startActivity(intent);
     }
 
     class SelectCursorAdapter extends CursorAdapter {
@@ -87,7 +88,7 @@ public class SelectActivity extends ListActivity implements LoaderManager.Loader
 
             int id = cursor.getInt(idIndex);
             String title = cursor.getString(titleIndex);
-            Bitmap thumbnail = MediaStore.Video.Thumbnails.getThumbnail(getContentResolver(), id, MediaStore.Video.Thumbnails.MICRO_KIND, null);
+            Bitmap thumbnail = MediaStore.Video.Thumbnails.getThumbnail(getContentResolver(), id, MediaStore.Video.Thumbnails.MINI_KIND, null);
 
             imageView.setImageBitmap(thumbnail);
             titleTextView.setText(title);
