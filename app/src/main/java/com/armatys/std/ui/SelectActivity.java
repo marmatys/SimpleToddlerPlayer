@@ -24,9 +24,9 @@ public class SelectActivity extends Activity implements LoaderManager.LoaderCall
 
     private CursorAdapter adapter;
 
-    static final String[] PROJECTION = new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE};
+    private static final String[] PROJECTION = new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE};
 
-    static final String SELECTION = MediaStore.Video.Media.DATA + " NOT LIKE '%Recorder%'";
+    private static final String SELECTION = MediaStore.Video.Media.DATA + " NOT LIKE '%Recorder%'";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,6 @@ public class SelectActivity extends Activity implements LoaderManager.LoaderCall
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-//            CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
             ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
             TextView titleTextView = (TextView) view.findViewById(R.id.textView);
 

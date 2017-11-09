@@ -9,14 +9,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by marmatys on 26.09.14.
- */
 public class LeavingByCornerClickedHandler {
     private static final String TAG = LeavingByCornerClickedHandler.class.getName();
-    private static final long MAX_PERIOD = 5000l;
+    private static final long MAX_PERIOD = 5000L;
 
-    private static int MAX_DISTANCE = 100;
+    private static final int MAX_DISTANCE = 100;
 
     private enum Corner {
         LEFT_TOP,
@@ -25,15 +22,15 @@ public class LeavingByCornerClickedHandler {
         LEFT_BOTTOM
     }
 
-    private static Map<Corner, Long> cornerToTime = new HashMap<Corner, Long>();
+    private static final Map<Corner, Long> CORNER_TO_TIME = new HashMap<Corner, Long>();
 
     static {
-        setDefaultState();;
+        setDefaultState();
     }
 
     private static void setDefaultState() {
         for (Corner corner : Corner.values()) {
-            cornerToTime.put(corner, 0l);
+            CORNER_TO_TIME.put(corner, 0L);
         }
     }
 
@@ -49,7 +46,7 @@ public class LeavingByCornerClickedHandler {
         }
 
         Log.d(TAG, "Corner added " + corner);
-        cornerToTime.put(corner, new Date().getTime());
+        CORNER_TO_TIME.put(corner, new Date().getTime());
 
         if (wasAllClicksDuringLastPeriod()) {
             Log.d(TAG, "Was clicked during last period - so should exit");
@@ -60,8 +57,8 @@ public class LeavingByCornerClickedHandler {
     }
 
     private static boolean wasAllClicksDuringLastPeriod() {
-        Long min = Collections.min(cornerToTime.values());
-        Long max = Collections.max(cornerToTime.values());
+        Long min = Collections.min(CORNER_TO_TIME.values());
+        Long max = Collections.max(CORNER_TO_TIME.values());
         Log.v(TAG, "min: " + min + " max: " + max);
         return max - min < MAX_PERIOD;
     }

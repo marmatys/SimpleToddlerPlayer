@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -44,9 +43,8 @@ public class PlayerActivity extends Activity implements View.OnTouchListener {
     @Override
     protected void onStart() {
         super.onStart();
-
         String path = getPath();
-        Log.d("Path to movie: ", path);
+        Log.d(TAG, String.format("Path to movie: "));
         if (path != null) {
             videoView.setVideoPath(path);
             videoView.start();
