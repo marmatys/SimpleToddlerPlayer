@@ -1,4 +1,6 @@
-gen
 local.properties
-out
+*.iml
 .idea/
+
+build/
+.gradle/
